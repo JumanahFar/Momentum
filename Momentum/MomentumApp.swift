@@ -12,7 +12,7 @@ import SwiftData
 struct MomentumApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Habit.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,14 @@ struct MomentumApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack{
+                StartView()
+                    .onAppear {
+                        
+                        NotificationService.shared.requestPermission()
+                        
+                    }
+            }//nav
         }
         .modelContainer(sharedModelContainer)
     }
